@@ -13,9 +13,9 @@ If k < next key, search the left child of this key (ie. k lies in between the fi
 Else, search the right child of the key.<br>
 5. Repeat steps 1 to 4 until the leaf is reached.<br>
 </div>
-## PROGRAM:
   
-  ```python
+## PROGRAM:
+```python
 # Searching a key on a B-tree in Python
 # Create a node
 class BTreeNode:
@@ -23,14 +23,11 @@ class BTreeNode:
     self.leaf = leaf
     self.keys = []
     self.child = []
-
-
 # Tree
 class BTree:
   def __init__(self, t):
     self.root = BTreeNode(True)
     self.t = t
-
     # Insert node
   def insert(self, k):
     root = self.root
@@ -42,7 +39,6 @@ class BTree:
       self.insert_non_full(temp, k)
     else:
       self.insert_non_full(root, k)
-
     # Insert nonfull
   def insert_non_full(self, x, k):
     i = len(x.keys) - 1
@@ -61,7 +57,6 @@ class BTree:
         if k[0] > x.keys[i][0]:
           i += 1
       self.insert_non_full(x.child[i], k)
-
     # Split the child
   def split_child(self, x, i):
     t = self.t
@@ -74,7 +69,6 @@ class BTree:
     if not y.leaf:
       z.child = y.child[t: 2 * t]
       y.child = y.child[0: t - 1]
-
   # Print the tree
   def print_tree(self, x, l=0):
     print("Level ", l, " ", len(x.keys), end=":")
@@ -85,7 +79,6 @@ class BTree:
     if len(x.child) > 0:
       for i in x.child:
         self.print_tree(i, l)
-
   # Search key in the tree
   def search_key(self, k, x=None):
     if x is not None:
@@ -98,25 +91,17 @@ class BTree:
         return None
       else:
         return self.search_key(k, x.child[i])
-      
     else:
       return self.search_key(k, self.root)
-
-
 def main():
   B = BTree(3)
-
   for i in range(10):
     B.insert((i, 2 * i))
-
   B.print_tree(B.root)
-
   if B.search_key(8) is not None:
     print("\nFound")
   else:
     print("\nNot Found")
-
-
 if __name__ == '__main__':
   main()
 ```
